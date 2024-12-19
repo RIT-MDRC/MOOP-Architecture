@@ -1,7 +1,7 @@
 [project]
-name = "moop-architecture"
+name = "rsma"
 version = "0.1.0"
-description = "Modular Object Oriented Programming Architecture for Robotics Applications in Python"
+description = "Robotic State Management Architecture for Robotics Applications in Python"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = []
