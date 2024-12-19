@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "rsma"
-version = "0.1.0"
+version = "0.1.1"
 description = "Robotic State Management Architecture for Robotics Applications in Python"
 readme = "README.md"
 license = {text = "MIT License"}
