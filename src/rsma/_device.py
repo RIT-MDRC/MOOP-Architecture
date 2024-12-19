@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from functools import reduce, wraps
 
-from logger import configure_logger
+from src.rsma._logger import configure_logger
 
 
 @dataclass
