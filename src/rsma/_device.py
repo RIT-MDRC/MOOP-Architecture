@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from functools import reduce, wraps
 
-from _logger import configure_logger
+from _logger import LOG_LEVEL, configure_logger
 
 
 @dataclass
@@ -247,7 +247,7 @@ def log_states():
 def configure_device(
     file_name: str = "pinconfig.json",
     file_kv_generator: callable = open_json,
-    log_level: str = "Debug",
+    log_level: str | None = "Debug",
 ):
     """configure the devices from the pinconfig file. This will parse the devices and store them in the global store.
 
@@ -266,7 +266,8 @@ def configure_device(
         This method will skip any parser that was not registered in the device parser list.
         This could happen for two reasons. The device store was not initialized due to the file that the initializer is in was not imported in the script file(memory benefit), or the parser's identifier had a typo in the pinconfig file(Will need to be fixed immediately).
     """
-    configure_logger(log_level)
+    if log_level is not None and log_level in LOG_LEVEL:
+        configure_logger(log_level)
     logging.info("Configuring devices...")
     for key, config in file_kv_generator(file_name):
         ctx = get_context(key)
