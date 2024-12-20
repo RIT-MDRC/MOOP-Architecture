@@ -10,6 +10,8 @@ In robotics applications, ongoing hardware development often leads to volatile l
 # How to convert from OOP to RSMA
 lets say you have the following class:
 ```py
+# file: old_robot.py
+
 # some import statement
 
 class RobotPart:
@@ -27,7 +29,16 @@ class RobotPart:
 In OOP, code above is very typical, but here is the translated version of above in this framework
 
 ```py
-# some import statement
+# file: robot.py
+
+# tools from this library
+from rsma import (
+    device,
+    create_context,
+    device_parser,
+    device_action,
+)
+
 import leg as leg_actions 
 import arm as arm_actions
 
@@ -39,7 +50,7 @@ class RobotPart:
 
 ctx = create_context("robotpart", (RobotPart,))
 
-@parser(ctx)
+@device_parser(ctx)
 def robotpart_parser(config_dict: dict) -> RobotPart:
   return RobotPart(**config_dict)
 
@@ -73,8 +84,14 @@ The configuration file is read from top to bottom(because order matters and we u
 # How do I run it?
 Once everything above is defined, we can finally start writing the main script. The benefit of this framework is that it is very friendly on the run script because we do not have to manage instances, and we can just focus on calling functions that we need to call and point(with the identifier) to the device that we like to call the function on. This means if you have many sample scripts or test scripts, other than your main script, it is really easy to manage all of them at once. For example:
 ```py
+# file: main.py
+
 import robot as robot_actions
 
+# Load state configuration to contexts
+configure_device("path/to/config.json")
+
+# Identifier we need to run this script
 CATBOT = "catbot"
 
 def main():
